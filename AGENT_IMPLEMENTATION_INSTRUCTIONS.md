@@ -1429,3 +1429,298 @@ That is the correct interpretation of the core principles:
 
 - "if it is not needed, it will not be built"
 - "self-adapting/building means composing, not replacing"
+
+---
+
+## 35. Phase 5: Meta-Platform and Extension Ecosystem
+
+### 35.1 Phase 5 Intent
+
+Phase 5 begins only after Phase 4 proves:
+- Autonomous orchestration is safe and bounded
+- Continuous improvement loops are stable
+- Governance and auditability are reliable at scale
+- Reuse-first principles are consistently applied
+
+The intent of Phase 5 is to evolve the system into a **meta-platform**:
+
+```text
+A platform that builds, evaluates, composes, and governs extensions and agentic capabilities
+```
+
+This phase introduces:
+
+1. Extension discovery and composition
+2. Standardized extension contracts
+3. Extension packaging and reuse across environments
+4. Agent-driven extension evaluation
+5. Cross-platform integration (Pi + others)
+6. Ecosystem-level governance
+7. Reusable "capability graph" of the platform
+
+This is where the system transitions from a platform to a platform that builds platforms.
+
+---
+
+### 35.2 Phase 5 Acceptance Criteria
+
+Phase 5 is complete when:
+
+The system can discover and evaluate reusable extensions.
+Extensions follow a defined contract.
+Extensions can be installed, enabled, disabled, and versioned.
+The system can propose replacing custom logic with reusable extensions.
+Extension composition is tracked and auditable.
+The system maintains a capability graph of what it can do.
+Cross-platform agent integration is possible (not only Pi).
+The system remains fully operable offline/on-prem.
+
+---
+
+### 35.3 Extension Contract
+
+Define a standard contract for all extensions.
+
+Minimum requirements:
+
+name
+version
+capabilities
+inputs
+outputs
+risk profile
+required permissions
+supported environments (local/cloud)
+validation requirements
+rollback support
+
+Every extension must declare:
+
+what it does
+what it touches
+what risk it introduces
+how it can be validated
+how it can be rolled back
+
+---
+
+### 35.4 Extension Lifecycle
+
+Each extension must support:
+
+install
+enable
+disable
+upgrade
+downgrade
+remove
+
+Each action must:
+
+be tracked in DBOS
+create audit records
+respect policy
+support rollback
+
+---
+
+### 35.5 Capability Graph
+
+Introduce a capability graph representing:
+
+what the platform can do
+which extension provides each capability
+which workflows depend on which capabilities
+which risks are associated with each capability
+
+Example:
+
+```text
+"generate code"      → Pi agent
+"durable execution"  → DBOS extension
+"validation"         → test runner extension
+"policy enforcement" → governance extension
+```
+
+This graph enables:
+
+reuse decisions
+dependency tracking
+impact analysis
+self-improvement planning
+
+---
+
+### 35.6 Extension Discovery
+
+The system should discover extensions from:
+
+local repositories
+configured extension directories
+approved remote sources (optional)
+internal extension registry
+
+Discovery must not auto-install.
+
+All discovered extensions must be:
+
+classified
+validated
+risk-assessed
+approved before use
+
+---
+
+### 35.7 Extension Evaluation
+
+Before using a new extension, the system must evaluate:
+
+does it already solve the problem?
+is it compatible with Pi?
+is it compatible with DBOS workflows?
+does it meet offline requirements?
+what risks does it introduce?
+what permissions does it require?
+
+This evaluation must be stored as an artifact.
+
+---
+
+### 35.8 Extension Composition
+
+The system should compose capabilities:
+
+```text
+task → workflow → capabilities → extensions
+```
+
+Example:
+
+```text
+"update documentation"
+   ↓
+workflow template
+   ↓
+uses:
+   - Pi agent
+   - file system tool
+   - validation tool
+   - approval system
+```
+
+Composition must be:
+
+explicit
+traceable
+auditable
+
+---
+
+### 35.9 Replacement Strategy
+
+The system should detect:
+
+custom code that duplicates existing extension capability
+
+Then propose:
+
+replace custom implementation with extension
+
+Flow:
+
+```text
+detect duplication
+   ↓
+identify candidate extension
+   ↓
+generate proposal
+   ↓
+validate compatibility
+   ↓
+request approval
+   ↓
+apply replacement
+```
+
+---
+
+### 35.10 Cross-Platform Integration
+
+Phase 5 should allow integration beyond Pi.
+
+Examples:
+
+other agent frameworks
+CLI-based tools
+local model runtimes
+external orchestration tools
+
+Requirement:
+
+All integrations must be wrapped as extensions.
+No direct uncontrolled integration is allowed.
+
+---
+
+### 35.11 Ecosystem Governance
+
+Introduce governance at extension level:
+
+which extensions are allowed
+which versions are approved
+which capabilities are restricted
+which environments allow which extensions
+
+Policies must support:
+
+allowlist
+denylist
+version constraints
+risk-based restrictions
+environment-based rules
+
+---
+
+### 35.12 Phase 5 Non-Goals
+
+Do not build:
+
+public marketplace platform
+uncontrolled plugin ecosystem
+auto-installation of external extensions
+opaque dependency chains
+fully autonomous extension upgrades
+
+---
+
+### 35.13 Definition of Done for Phase 5
+
+Phase 5 is done when:
+
+Extensions are first-class entities.
+The system can discover, evaluate, and compose extensions.
+Capabilities are mapped and tracked.
+Custom logic can be replaced by reusable extensions.
+Extension lifecycle is managed and auditable.
+Cross-platform integration works through extensions.
+The system remains minimal, controlled, and offline-capable.
+
+---
+
+### Final System State (End of Phase 5)
+
+```text
+Pi              → adaptive agent layer
+DBOS            → durable execution layer
+Postgres        → system state and audit
+Extension system → capability composition layer
+Policy engine   → governance layer
+UI/CLI          → control and visibility layer
+```
+
+The platform becomes:
+
+```text
+A governed, extensible, self-improving agentic engineering system
+built from reusable capabilities rather than monolithic code
+```
