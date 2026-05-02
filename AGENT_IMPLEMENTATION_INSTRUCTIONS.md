@@ -4346,3 +4346,330 @@ A predictable, assurance-driven agentic system platform
 capable of delivering reliable outcomes within defined guarantees
 while maintaining flexibility, governance, and auditability
 ```
+
+---
+
+## 47. Vertical Module Implementation Model
+
+The phase roadmap must be converted into vertical modules.
+
+A vertical module is an end-to-end, testable product slice:
+
+```text
+User action
+   ↓
+Pi command / chat / UI
+   ↓
+Extension logic
+   ↓
+DBOS workflow
+   ↓
+Postgres state
+   ↓
+Artifact / validation / approval output
+   ↓
+User-visible result
+```
+
+Do not implement by horizontal layers such as "all database first", "all UI later", or "all governance later".
+
+Each module must deliver one usable capability.
+
+---
+
+## 48. Vertical Modules
+
+### Module 1: Durable Task Kernel
+
+Goal:
+
+Create a task, run it through DBOS, store state, inspect result.
+
+Includes:
+
+Pi command
+DBOS workflow
+Postgres task/run tables
+basic run status
+basic tests
+
+Acceptance test:
+
+User creates a task → system creates DB record → DBOS run starts → status can be inspected.
+
+---
+
+### Module 2: Tool Call Logging
+
+Goal:
+
+Capture tool calls during a run and store them.
+
+Includes:
+
+Pi event/tool hook
+tool_calls table
+risk placeholder
+inspect command
+tests
+
+Acceptance test:
+
+A run invokes a tool → tool call input/output/status are stored → user can inspect them.
+
+---
+
+### Module 3: Artifact Capture
+
+Goal:
+
+Store generated files, diffs, or reports as run artifacts.
+
+Includes:
+
+artifact registration tool
+artifact table
+path/hash/summary metadata
+artifact list command
+tests
+
+Acceptance test:
+
+A run produces an artifact → artifact is recorded → user can list and inspect it.
+
+---
+
+### Module 4: Approval Gate
+
+Goal:
+
+Pause risky actions and require human approval.
+
+Includes:
+
+risk classifier
+approvals table
+request approval tool
+approve/reject commands
+DBOS pause/resume behavior
+tests
+
+Acceptance test:
+
+High-risk action requested → run pauses → approval is created → user approves → run continues.
+
+---
+
+### Module 5: Validation Runner
+
+Goal:
+
+Run build/test/lint validation and store results.
+
+Includes:
+
+validation command wrapper
+validation_results table
+validation status in run detail
+tests
+
+Acceptance test:
+
+User runs validation for a run → command executes → result is stored → status is visible.
+
+---
+
+### Module 6: File Reservation
+
+Goal:
+
+Prevent conflicting agent edits.
+
+Includes:
+
+file_reservations table
+reserve/release commands
+write-scope checks
+expiration handling
+tests
+
+Acceptance test:
+
+Run A reserves file → Run B cannot reserve same file → reservation release allows Run B.
+
+---
+
+### Module 7: Engineer Cockpit
+
+Goal:
+
+Provide minimal user visibility across runs, approvals, artifacts, and validations.
+
+Includes:
+
+TUI or CLI cockpit
+summary views
+inspect actions
+approval actions
+tests where practical
+
+Acceptance test:
+
+User opens cockpit → sees active runs, pending approvals, recent artifacts, validation results.
+
+---
+
+### Module 8: Improvement Proposal Flow
+
+Goal:
+
+Allow the system to propose changes to itself safely.
+
+Includes:
+
+improvement_proposals table
+proposal artifact
+risk classification
+validation plan
+approval flow
+tests
+
+Acceptance test:
+
+User requests platform improvement → proposal is generated → risk classified → approval required.
+
+---
+
+### Module 9: Workflow Template Promotion
+
+Goal:
+
+Promote repeated workflows into reusable templates.
+
+Includes:
+
+workflow_templates table
+template creation command
+template execution command
+validation requirements
+tests
+
+Acceptance test:
+
+Repeated workflow is promoted → template is stored → new run can start from template.
+
+---
+
+### Module 10: Visual Workflow Inspection
+
+Goal:
+
+Inspect workflow execution visually or structurally.
+
+Includes:
+
+step graph data
+CLI/TUI graph view first
+optional web view later
+step/artifact/policy links
+tests for graph data
+
+Acceptance test:
+
+User inspects run graph → sees steps, statuses, artifacts, approvals, validations.
+
+---
+
+### Module 11: Multi-Agent Coordination
+
+Goal:
+
+Support planner, builder, validator, reviewer roles without file conflicts.
+
+Includes:
+
+agent role metadata
+file reservation enforcement
+role permissions
+handoff records
+tests
+
+Acceptance test:
+
+Planner creates plan → builder edits reserved files → validator validates without editing.
+
+---
+
+### Module 12: Policy Simulation
+
+Goal:
+
+Preview risks, approvals, affected files, and validations before execution.
+
+Includes:
+
+simulation command
+policy decision preview
+expected approvals
+expected validations
+tests
+
+Acceptance test:
+
+User simulates workflow → system shows expected risks, approvals, files, validations.
+
+---
+
+## 49. Mapping Phases to Vertical Modules
+
+```text
+Phase 1 → Modules 1–3
+Phase 2 → Modules 4–8
+Phase 3 → Modules 9–12
+Phase 4+ → Additional vertical modules only when justified
+```
+
+Future phases must not be implemented as large horizontal initiatives.
+
+They must be decomposed into new vertical modules with:
+
+user action
+DBOS workflow
+Postgres state
+artifact/output
+validation
+user-visible result
+
+---
+
+## 50. Vertical Testing Rule
+
+Every module must include:
+
+unit tests
+integration test
+end-to-end acceptance test
+manual verification command
+
+A module is not complete until a developer can test it independently.
+
+---
+
+## 51. Build Order
+
+Build in this order:
+
+1. Durable Task Kernel
+2. Tool Call Logging
+3. Artifact Capture
+4. Approval Gate
+5. Validation Runner
+6. File Reservation
+7. Engineer Cockpit
+8. Improvement Proposal Flow
+9. Workflow Template Promotion
+10. Visual Workflow Inspection
+11. Multi-Agent Coordination
+12. Policy Simulation
+
+Each module must leave the system usable.
