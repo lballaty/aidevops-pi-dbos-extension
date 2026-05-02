@@ -2527,3 +2527,237 @@ The platform becomes:
 A governed, extensible, self-operating agentic system platform
 capable of running entire domains while preserving control, auditability, and trust
 ```
+
+---
+
+## 39. Phase 9: Economic Autonomy and External Interaction Layer
+
+### 39.1 Phase 9 Intent
+
+Phase 9 begins only after Phase 8 proves:
+- Domain-level systems operate reliably
+- Meta-agent fabric is stable
+- Governance, auditability, and policy enforcement are consistent
+- Multi-system coordination works safely
+
+The intent of Phase 9 is to enable **controlled external interaction and economic activity**:
+
+```text
+Systems that can interact with external entities (users, services, markets)
+and perform value-generating activities
+while remaining fully governed, auditable, and bounded
+```
+
+This phase introduces:
+
+1. External interaction layer (APIs, messaging, integrations)
+2. Economic action capability (bounded)
+3. Contract-based interactions
+4. External identity and trust handling
+5. Revenue/service workflows
+6. Risk-aware external execution
+7. External auditability and traceability
+
+---
+
+### 39.2 Phase 9 Acceptance Criteria
+
+Phase 9 is complete when:
+
+The system can safely interact with external systems via defined interfaces.
+External actions are governed by policy and risk classification.
+All external interactions are logged and auditable.
+Economic or value-generating workflows can be defined and executed.
+Contracts or agreements can be modeled and enforced.
+External identity and trust are validated.
+All actions remain reversible where possible.
+Offline/on-prem operation remains intact for core system.
+
+---
+
+### 39.3 External Interaction Layer
+
+Introduce controlled interfaces:
+
+HTTP APIs
+webhooks
+message queues
+file exchange
+email or notification systems (optional)
+
+All external interactions must:
+
+be wrapped as extensions
+be logged as artifacts or tool calls
+pass policy checks
+be traceable to a task/run
+
+---
+
+### 39.4 Economic Actions
+
+Enable bounded economic behavior:
+
+offer services (e.g. compliance analysis, report generation)
+trigger billing or usage tracking (conceptual, not full billing system)
+manage subscriptions or access rules (minimal)
+
+Constraints:
+
+no autonomous financial decisions without approval
+no irreversible financial actions
+clear policy gating
+
+---
+
+### 39.5 Contract-Based Workflows
+
+Model interactions as contracts:
+
+input expectations
+output guarantees
+validation criteria
+approval requirements
+risk classification
+
+Contracts must be:
+
+versioned
+auditable
+enforceable via validation
+
+---
+
+### 39.6 External Identity and Trust
+
+Support:
+
+external user identities
+API keys or tokens
+signed requests
+trusted partner nodes
+
+Rules:
+
+no implicit trust
+all identities must be validated
+permissions must be enforced
+
+---
+
+### 39.7 Service Workflows
+
+Define workflows such as:
+
+```text
+user submits request
+   ↓
+system validates input
+   ↓
+system executes workflow
+   ↓
+system generates artifact
+   ↓
+validation
+   ↓
+optional approval
+   ↓
+result delivered
+```
+
+---
+
+### 39.8 Risk-Aware External Execution
+
+Every external action must be classified:
+
+low risk: read-only responses
+medium risk: content generation
+high risk: system changes
+critical risk: financial/legal impact
+
+Rules:
+
+high and critical require approval
+critical must be restricted by default
+
+---
+
+### 39.9 External Observability
+
+Expose:
+
+request volume
+success/failure rates
+external errors
+policy violations
+latency
+
+Keep implementation minimal:
+
+CLI outputs
+log exports
+simple summaries
+
+---
+
+### 39.10 Audit and Traceability
+
+All external interactions must link to:
+
+task
+run
+step
+artifact
+policy decision
+approval (if any)
+
+This ensures full traceability from request to outcome.
+
+---
+
+### 39.11 Phase 9 Non-Goals
+
+Do not build:
+
+full payment systems
+unrestricted financial automation
+autonomous legal systems
+complex SaaS billing platform
+unbounded external integrations
+
+---
+
+### 39.12 Definition of Done for Phase 9
+
+Phase 9 is done when:
+
+External interactions are safe and governed.
+Economic workflows are possible but bounded.
+Contracts are enforceable via validation.
+Identity and trust are handled securely.
+All actions remain auditable and reversible where possible.
+The system remains minimal and offline-capable at core.
+
+---
+
+### Final Evolution State (End of Phase 9)
+
+```text
+Meta-Agent Fabric
+   ↓
+Domain Systems
+   ↓
+External Interaction Layer
+   ↓
+Governed Economic Activity
+   ↓
+Auditable Execution (DBOS + policy)
+```
+
+The platform becomes:
+
+```text
+A governed, extensible agentic system platform capable of interacting with the outside world
+and generating value, while maintaining strict control, auditability, and safety
+```
