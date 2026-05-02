@@ -2261,3 +2261,269 @@ The platform becomes:
 A governed, self-evolving agentic engineering ecosystem
 capable of continuous improvement without losing control, trust, or auditability
 ```
+
+---
+
+## 38. Phase 8: Autonomous Business Systems and Meta-Agent Fabric
+
+### 38.1 Phase 8 Intent
+
+Phase 8 begins only after Phase 7 proves:
+- Self-evolution is safe, controlled, and auditable
+- Optimization loops produce measurable improvements
+- Federation and trust layers are stable
+- Extension ecosystem is mature and governed
+
+The intent of Phase 8 is to extend the platform beyond engineering into:
+
+```text
+Fully governed, AI-operated systems capable of running complete business or operational domains
+```
+
+This is where the platform evolves into a meta-agent fabric:
+
+```text
+A system that can design, deploy, operate, and improve entire agentic systems (including businesses)
+within strict governance, auditability, and safety constraints
+```
+
+---
+
+### 38.2 Phase 8 Acceptance Criteria
+
+Phase 8 is complete when:
+
+The system can define and execute full domain-level workflows (not just engineering tasks).
+Multiple coordinated agent systems can operate continuously.
+Business-level processes can be modeled as workflows.
+The system can manage its own operational lifecycle (within policy).
+All actions remain auditable and governed.
+Autonomy is bounded and configurable per domain.
+Systems can be deployed, replicated, and maintained automatically.
+
+---
+
+### 38.3 Domain-Level Workflows
+
+Extend from engineering workflows to domain workflows:
+
+compliance management
+operations automation
+content generation pipelines
+customer interaction flows
+monitoring and remediation systems
+training and knowledge generation
+
+Each domain workflow must still map to:
+
+```text
+task → run → steps → artifacts → validation → approval
+```
+
+---
+
+### 38.4 Meta-Agent Fabric
+
+Introduce coordinated agent systems:
+
+```text
+agent system A → engineering
+agent system B → operations
+agent system C → compliance
+agent system D → monitoring
+```
+
+These systems must:
+
+coordinate via DBOS workflows
+share artifacts via controlled channels
+respect policy boundaries
+remain independently governable
+
+---
+
+### 38.5 Business-Level Autonomy
+
+Autonomy expands but remains bounded.
+
+Examples:
+
+auto-generate compliance documentation
+maintain system configuration
+optimize workflows
+respond to detected issues
+propose product or system improvements
+
+Constraints:
+
+high-risk actions require approval
+financial or legal decisions always require approval
+external communication requires policy checks
+
+---
+
+### 38.6 Deployment Templates
+
+Introduce system templates:
+
+"AI compliance system"
+"AI DevOps system"
+"AI content pipeline"
+"AI monitoring system"
+
+Templates define:
+
+agents
+workflows
+extensions
+policies
+validation rules
+deployment configuration
+
+Templates must be:
+
+versioned
+auditable
+reproducible
+
+---
+
+### 38.7 System Lifecycle Management
+
+The platform must manage:
+
+deploy system
+monitor system
+update system
+optimize system
+decommission system
+
+All lifecycle actions must:
+
+be logged
+be reversible
+respect policy
+produce artifacts
+
+---
+
+### 38.8 Continuous Operation
+
+Support long-running systems:
+
+24/7 workflows
+scheduled operations
+event-driven triggers
+reactive remediation
+
+Requirements:
+
+checkpointing
+safe restart
+bounded resource usage
+failure isolation
+
+---
+
+### 38.9 Multi-System Coordination
+
+Allow multiple systems to interact:
+
+```text
+System A produces artifact
+System B validates
+System C reports
+System D improves
+```
+
+Rules:
+
+no implicit trust
+all exchanges logged
+policies enforced at boundaries
+
+---
+
+### 38.10 Observability Across Systems
+
+Expose:
+
+system-level performance
+workflow success rates
+resource usage
+failure patterns
+policy violations
+improvement trends
+
+Keep implementation minimal:
+
+CLI + simple views first
+exportable logs
+no heavy dashboards initially
+
+---
+
+### 38.11 Safety and Governance
+
+Strict constraints remain:
+
+no unrestricted autonomy
+no opaque decision-making
+no unapproved external impact
+no silent failures
+
+System must always:
+
+log
+validate
+request approval when required
+allow rollback
+
+---
+
+### 38.12 Phase 8 Non-Goals
+
+Do not build:
+
+fully autonomous business with no human oversight
+financial automation without controls
+legal decision-making systems
+unbounded agent ecosystems
+complex SaaS marketplace
+
+---
+
+### 38.13 Definition of Done for Phase 8
+
+Phase 8 is done when:
+
+The platform can define and run full domain systems.
+Multiple agent systems can coordinate safely.
+Deployment templates exist and are reusable.
+System lifecycle is managed through workflows.
+Autonomy is bounded and governed.
+All actions remain auditable and reproducible.
+Offline/on-prem operation remains intact.
+
+---
+
+### Final Evolution State (End of Phase 8)
+
+```text
+Meta-Agent Fabric
+   ↓
+Domain Systems (engineering, compliance, operations)
+   ↓
+Coordinated Agent Systems
+   ↓
+Governed Execution (DBOS + policy)
+   ↓
+Auditable State (Postgres)
+```
+
+The platform becomes:
+
+```text
+A governed, extensible, self-operating agentic system platform
+capable of running entire domains while preserving control, auditability, and trust
+```
