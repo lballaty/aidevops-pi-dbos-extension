@@ -4673,3 +4673,333 @@ Build in this order:
 12. Policy Simulation
 
 Each module must leave the system usable.
+
+---
+
+## 52. Full Vertical Module Map Across All Phases
+
+The entire roadmap (Phases 1–16) must be implemented as vertical modules.
+
+Each phase is not implemented as a layer.
+Each phase contributes **new vertical modules**.
+
+Every module must:
+
+```text
+start from user intent
+flow through Pi
+execute via DBOS
+persist in Postgres
+produce artifacts/validation/approvals
+return a visible result
+```
+
+---
+
+## 53. Phase-to-Module Expansion Model
+
+### Phase 1–2 → Core Execution Modules
+
+(already defined)
+
+```
+M1   Durable Task Kernel
+M2   Tool Call Logging
+M3   Artifact Capture
+M4   Approval Gate
+M5   Validation Runner
+M6   File Reservation
+M7   Engineer Cockpit
+M8   Improvement Proposal Flow
+```
+
+---
+
+### Phase 3 → Workflow Intelligence Modules
+
+```
+M9   Workflow Template Promotion
+M10  Visual Workflow Inspection
+M11  Multi-Agent Coordination
+M12  Policy Simulation
+```
+
+---
+
+### Phase 4 → Autonomous Orchestration Modules
+
+```
+M13  Autonomous Task Generator
+M14  Continuous Improvement Loop
+M15  Autonomy Policy Controller
+M16  Long-Running Agent Execution
+```
+
+Acceptance example:
+
+System detects repeated failure → generates task → executes under policy → logs outcome.
+
+---
+
+### Phase 5 → Extension Ecosystem Modules
+
+```
+M17  Extension Registry
+M18  Extension Contract Validator
+M19  Capability Graph Builder
+M20  Extension Composition Engine
+M21  Extension Replacement Analyzer
+```
+
+Acceptance example:
+
+System detects duplicated logic → proposes extension reuse → validates → applies.
+
+---
+
+### Phase 6 → Federation & Trust Modules
+
+```
+M22  Node Identity & Trust Layer
+M23  Cross-Node Artifact Exchange
+M24  Deterministic Replay Engine
+M25  Decision Receipt Generator
+M26  Policy Synchronization Engine
+```
+
+Acceptance example:
+
+Run from Node A → verified and replayed on Node B.
+
+---
+
+### Phase 7 → Self-Evolution Modules
+
+```
+M27  Architecture Proposal Engine
+M28  Optimization Engine
+M29  Experimentation Sandbox
+M30  Long-Term Memory Store
+M31  Capability Evolution Manager
+```
+
+Acceptance example:
+
+System proposes architecture improvement → validated → approved → applied.
+
+---
+
+### Phase 8 → Domain System Modules
+
+```
+M32  Domain Workflow Engine
+M33  System Template Engine
+M34  Multi-System Coordinator
+M35  Lifecycle Management Engine
+M36  Continuous Operation Engine
+```
+
+Acceptance example:
+
+Deploy compliance system → runs continuously → updates itself.
+
+---
+
+### Phase 9 → External Interaction Modules
+
+```
+M37  External API Gateway
+M38  Contract Execution Engine
+M39  External Identity Manager
+M40  Service Workflow Engine
+M41  Risk-Aware External Execution
+```
+
+Acceptance example:
+
+External request → validated → executed → audited → returned.
+
+---
+
+### Phase 10 → Standardization Modules
+
+```
+M42  Standard Data Model Layer
+M43  Workflow Import/Export Engine
+M44  Extension Interoperability Layer
+M45  Policy Serialization Engine
+M46  External Validation Interface
+```
+
+Acceptance example:
+
+Workflow exported → imported into another system → executed successfully.
+
+---
+
+### Phase 11 → Compliance Modules
+
+```
+M47  Control Mapping Engine
+M48  Evidence Generation Engine
+M49  Compliance Monitoring Engine
+M50  Audit Export Engine
+M51  Explainability Engine
+```
+
+Acceptance example:
+
+Run → mapped to ISO control → evidence generated → auditor verifies.
+
+---
+
+### Phase 12 → Global Governance Modules
+
+```
+M52  Multi-Org Governance Layer
+M53  Cross-Jurisdiction Policy Engine
+M54  Ethical Risk Engine
+M55  Sustainability Manager
+M56  Trust Coordination Layer
+```
+
+Acceptance example:
+
+Same workflow → different policy applied in EU vs US → both compliant.
+
+---
+
+### Phase 13 → Intent Layer Modules
+
+```
+M57  Intent Parser
+M58  Intent-to-Workflow Translator
+M59  Context Engine
+M60  Personalization Layer
+M61  Human-AI Collaboration Manager
+```
+
+Acceptance example:
+
+User intent → system generates workflow → user reviews → execution proceeds.
+
+---
+
+### Phase 14 → Simulation Modules
+
+```
+M62  Simulation Engine
+M63  Scenario Generator
+M64  Risk Prediction Engine
+M65  Confidence Scoring Engine
+M66  Execution Gate Controller
+```
+
+Acceptance example:
+
+User intent → 3 scenarios → risks shown → best path selected.
+
+---
+
+### Phase 15 → Real-Time Control Modules
+
+```
+M67  Real-Time Monitor
+M68  Deviation Detector
+M69  Adaptive Controller
+M70  Dynamic Risk Evaluator
+M71  Checkpoint Recovery Engine
+```
+
+Acceptance example:
+
+Execution deviates → system adapts → completes successfully.
+
+---
+
+### Phase 16 → Assurance Modules
+
+```
+M72  Intent Assurance Engine
+M73  Constraint Enforcement Engine
+M74  Pre-Commit Verification Engine
+M75  Safety Envelope Controller
+M76  Outcome Guarantee Validator
+```
+
+Acceptance example:
+
+User defines constraints → system executes → guarantees verified.
+
+---
+
+## 54. Vertical Dependency Rule
+
+Modules may depend only on:
+
+previous modules
+core primitives (task, run, step, artifact, approval)
+
+Modules must not require future modules.
+
+---
+
+## 55. Independent Testability Rule
+
+Each module must be testable with:
+
+single command
+single run
+single observable output
+
+No module should require the entire system to function.
+
+---
+
+## 56. Incremental System Growth
+
+After each module:
+
+system must remain usable
+previous modules must still work
+new capability must be demonstrable end-to-end
+
+---
+
+## 57. Critical Design Constraint
+
+The system must evolve like this:
+
+```text
+small working system
+   → add module
+      → test end-to-end
+         → stabilize
+            → repeat
+```
+
+Never:
+
+```text
+design everything
+build everything
+test at the end
+```
+
+---
+
+## Final Principle
+
+This platform is not built as:
+
+layers
+phases
+components
+
+It is built as:
+
+```text
+a sequence of vertically integrated, testable capabilities
+```
+
+Each module is a complete slice of value.
