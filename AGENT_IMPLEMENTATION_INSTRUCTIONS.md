@@ -1724,3 +1724,289 @@ The platform becomes:
 A governed, extensible, self-improving agentic engineering system
 built from reusable capabilities rather than monolithic code
 ```
+
+---
+
+## 36. Phase 6: Multi-Environment Federation and Deterministic Trust Layer
+
+### 36.1 Phase 6 Intent
+
+Phase 6 begins only after Phase 5 proves:
+- Extensions are composable and governed
+- Capability graph is reliable
+- Autonomy is bounded and auditable
+- Cross-project orchestration works
+
+The intent of Phase 6 is to evolve the platform into a **federated, trustable system**:
+
+```text
+Multiple independent deployments (local, on-prem, private cloud)
+that can interoperate, share capabilities, and exchange verifiable outcomes
+without losing control, privacy, or auditability
+```
+
+This phase introduces:
+
+1. Multi-environment federation (local ↔ local, local ↔ private cloud)
+2. Deterministic execution and replay guarantees
+3. Cryptographic audit and provenance (decision receipts)
+4. Secure capability sharing between environments
+5. Policy synchronization with local override
+6. Trust boundaries between agents and environments
+7. Reproducible builds and runs
+
+---
+
+### 36.2 Phase 6 Acceptance Criteria
+
+Phase 6 is complete when:
+
+Two independent deployments can exchange tasks or artifacts securely.
+A run executed in one environment can be verified or replayed in another.
+All critical actions have verifiable provenance.
+Policies can be synchronized but overridden locally.
+Capabilities can be shared without exposing full systems.
+Trust boundaries are explicit and enforced.
+The system remains fully operable offline/on-prem.
+
+---
+
+### 36.3 Federation Model
+
+Each deployment is an independent node:
+
+```text
+Node A (local)
+Node B (on-prem)
+Node C (private cloud)
+```
+
+Nodes may:
+
+exchange artifacts
+exchange proposals
+request validation from another node
+share approved extensions
+verify runs from other nodes
+
+Nodes must not:
+
+implicitly trust each other
+execute remote instructions without validation
+share secrets by default
+
+---
+
+### 36.4 Deterministic Execution
+
+Introduce deterministic constraints:
+
+```text
+same input + same environment + same versioned extensions
+   → must produce reproducible result (within tolerance)
+```
+
+Store:
+
+inputs
+model/config version
+extension versions
+workflow definition
+policy snapshot
+environment metadata
+
+This enables:
+
+run replay
+cross-node verification
+audit compliance
+
+---
+
+### 36.5 Provenance and Decision Receipts
+
+Every critical action must generate a decision receipt.
+
+A receipt includes:
+
+what action was taken
+why it was taken (intent + reasoning summary)
+which inputs were used
+which tools/extensions were involved
+which policies were evaluated
+who/what approved it
+timestamp
+hash/signature
+
+Receipts must be:
+
+immutable
+traceable
+verifiable across nodes
+
+---
+
+### 36.6 Trust Boundaries
+
+Define explicit trust zones:
+
+local trusted
+local restricted
+external trusted
+external untrusted
+
+Rules:
+
+untrusted inputs must be validated
+external artifacts must be verified
+external workflows must not execute directly
+policy must gate all cross-boundary actions
+
+---
+
+### 36.7 Capability Sharing
+
+Nodes may share capabilities via extensions.
+
+Shared capability must include:
+
+extension package
+version
+capability definition
+risk profile
+validation requirements
+signature or checksum
+
+Receiving node must:
+
+evaluate
+validate
+approve before enabling
+
+---
+
+### 36.8 Policy Synchronization
+
+Support:
+
+global policy templates
+local overrides
+environment-specific rules
+
+Example:
+
+```text
+global:         high-risk requires approval
+local dev:      allow medium-risk auto-run
+production:     require approval for all writes
+```
+
+Policy changes must be:
+
+versioned
+audited
+reviewable
+
+---
+
+### 36.9 Cross-Node Workflows
+
+Allow workflows such as:
+
+```text
+Node A generates artifact
+   ↓
+Node B validates artifact
+   ↓
+Node C reviews and approves
+```
+
+Requirements:
+
+each step logged locally
+receipts exchanged
+no implicit trust
+full traceability preserved
+
+---
+
+### 36.10 Secure Communication
+
+All inter-node communication must be:
+
+authenticated
+authorized
+encrypted
+logged
+
+Do not implement full enterprise security stack initially.
+
+Start with:
+
+signed messages
+simple key-based identity
+explicit allowlists
+
+---
+
+### 36.11 Reproducibility and Environment Capture
+
+Each run must capture:
+
+OS and runtime info
+Node version
+extension versions
+model versions
+configuration snapshot
+
+This enables:
+
+debugging
+audit
+cross-node replay
+compliance reporting
+
+---
+
+### 36.12 Phase 6 Non-Goals
+
+Do not build:
+
+global always-on distributed system
+complex multi-cloud orchestration
+automatic trust between nodes
+fully decentralized autonomous system
+heavy blockchain-based infrastructure
+
+---
+
+### 36.13 Definition of Done for Phase 6
+
+Phase 6 is done when:
+
+Multiple deployments can interoperate securely.
+Runs are reproducible and verifiable.
+Provenance is captured for critical actions.
+Policies can be shared and overridden.
+Capabilities can be exchanged safely.
+Trust boundaries are enforced.
+The system remains minimal and offline-capable.
+
+---
+
+### Final Evolution State (End of Phase 6)
+
+```text
+Local Node (Pi + DBOS + Extensions)
+   ↕
+Federation Layer (secure exchange)
+   ↕
+Other Nodes (independent systems)
+```
+
+The platform becomes:
+
+```text
+A federated, deterministic, and auditable agentic engineering system
+capable of safe collaboration across environments without losing control
+```
