@@ -1,4 +1,426 @@
 # Agent Implementation Instructions: Pi Native DBOS Durable Kernel
+
+## 0. Core Principles (Pi + DBOS Aligned)
+
+This project must strictly follow a small set of non-negotiable principles derived from the philosophies behind Pi and DBOS.
+All design, implementation, and decisions must be evaluated against these.
+
+---
+
+### 0.1 Minimalism First
+
+```text
+If it is not needed, it must not be built.
+```
+
+Rules:
+
+* Do not pre-build features "just in case"
+* Do not generalize prematurely
+* Do not create abstractions without repeated need
+* Prefer the smallest working solution
+
+Every module must justify its existence through actual usage.
+
+---
+
+### 0.2 Vertical Value Delivery
+
+Every change must produce a usable, testable, end-to-end capability.
+
+Rules:
+
+* No horizontal layers (DB, UI, logic separately)
+* Each module must go from user → execution → result
+* System must be usable after every module
+
+If a module cannot be demonstrated end-to-end, it is incomplete.
+
+---
+
+### 0.3 Durable by Design (DBOS Principle)
+
+All important work must be durable, resumable, and auditable.
+
+Rules:
+
+* Every task must be persisted
+* Every run must be resumable
+* Every step must be recorded
+* Failures must not lose state
+
+No critical logic should exist only in memory.
+
+---
+
+### 0.4 Deterministic Where It Matters
+
+Critical system behavior must be predictable and reproducible.
+
+Rules:
+
+* Policy evaluation must be deterministic
+* Validation must be deterministic
+* Workflow transitions must be deterministic
+* Non-deterministic components must be bounded and validated
+
+---
+
+### 0.5 Everything is a Task / Run
+
+All system behavior must map to:
+
+```text
+task → run → steps → artifacts → validation → approval
+```
+
+Rules:
+
+* No hidden execution paths
+* No implicit actions
+* No background behavior without traceability
+
+If something cannot be represented in this model, it should not exist.
+
+---
+
+### 0.6 Extension Over Reinvention (Pi Principle)
+
+Prefer reuse and extension over building new systems.
+
+Rules:
+
+* Reuse Pi capabilities where possible
+* Wrap external tools instead of rebuilding them
+* Extend via modules, not forks
+* Build only when reuse fails
+
+---
+
+### 0.7 Governance by Default
+
+All actions must be governed, classified, and traceable.
+
+Rules:
+
+* Every action must have a risk level
+* High-risk actions require approval
+* Policy must always be enforced
+* No bypass of governance mechanisms
+
+---
+
+### 0.8 Explicit Over Implicit
+
+The system must never hide behavior.
+
+Rules:
+
+* All decisions must be visible
+* All workflows must be inspectable
+* All policies must be explicit
+* All changes must be traceable
+
+---
+
+### 0.9 Human-in-the-Loop for Risk
+
+Humans remain the final authority for high-impact decisions.
+
+Rules:
+
+* No autonomous critical actions
+* No silent system evolution
+* No policy changes without approval
+* No irreversible actions without verification
+
+---
+
+### 0.10 Reuse Before Build
+
+The system must prefer composition over creation.
+
+Rules:
+
+* Always check for existing solutions first
+* Document reuse decisions
+* Wrap instead of rewrite
+* Promote reusable patterns into modules
+
+---
+
+### 0.11 Offline-First, Local-First
+
+The system must function fully without cloud dependencies.
+
+Rules:
+
+* Local execution must always work
+* Cloud features must be optional
+* No critical dependency on external services
+* All core capabilities must run on-prem
+
+---
+
+### 0.12 Observability as a First-Class Concern
+
+If it cannot be observed, it cannot be trusted.
+
+Rules:
+
+* All runs must be inspectable
+* All decisions must be logged
+* All artifacts must be traceable
+* All failures must be diagnosable
+
+---
+
+### 0.13 Safe Evolution
+
+The system may evolve, but only through controlled, auditable processes.
+
+Rules:
+
+* All changes must go through proposal → validation → approval
+* Self-modification must be governed
+* Rollback must always be possible
+* Experiments must be isolated
+
+---
+
+### 0.14 Build for Replacement
+
+Every component must be replaceable.
+
+Rules:
+
+* Avoid vendor lock-in
+* Abstract external dependencies
+* Keep modules loosely coupled
+* Prefer interfaces over tight integration
+
+---
+
+### 0.15 No Big Bang Integration
+
+The system must grow incrementally.
+
+Rules:
+
+* Build one module at a time
+* Test each module independently
+* Integrate continuously
+* Never defer testing to the end
+
+---
+
+### 0.16 Intent and State Are Governed Assets
+
+Intent and state are first-class governed objects.
+
+The system must govern:
+
+user intent
+derived intent
+task state
+run state
+workflow state
+agent state
+policy state
+extension state
+environment state
+
+Rules:
+
+* Original intent must be preserved
+* Derived intent must be traceable
+* State transitions must be explicit and valid
+* No silent reinterpretation of intent
+* All changes must include actor, reason, timestamp, evidence
+
+---
+
+### 0.17 State Machine Discipline
+
+Every object must have a lifecycle:
+
+```text
+task:     pending → running → waiting_approval → completed
+run:      created → executing → paused → resumed → failed/completed
+approval: requested → approved/rejected/expired
+artifact: draft → validated → approved → published/archived
+```
+
+Rules:
+
+* State transitions must be validated
+* Unauthorized transitions must be blocked
+* State history must be retained
+
+---
+
+### 0.18 Target State as First-Class Object
+
+Every task/run must define a target state.
+
+```text
+intent → target_state → constraints → execution
+```
+
+Rules:
+
+* Target state must be explicit and testable
+* Must define expected outputs and constraints
+* Must be versioned and linked to run
+* Execution is incomplete without validation against it
+
+---
+
+### 0.19 State Triad Model
+
+Track:
+
+```text
+Current State
+Target State
+Observed State
+Drift = Observed State - Target State
+```
+
+---
+
+### 0.20 Target State Validation
+
+After execution, outcome must be classified as one of:
+
+```text
+achieved
+partially achieved
+failed
+constraint violation
+```
+
+Rules:
+
+* Constraint violations override success
+* Partial success must be explicit
+
+---
+
+### 0.21 Drift Management at All Layers
+
+Drift must be detected across:
+
+intent
+plan
+workflow
+agent behavior
+policy
+extension
+environment
+artifact
+validation
+documentation
+
+Rules:
+
+* Expected vs actual must be compared
+* Drift must be logged and classified
+* Significant drift must trigger action
+
+---
+
+### 0.22 Drift Response Model
+
+```text
+detect → classify → analyze → remediate → validate → record
+```
+
+Severity:
+
+```text
+informational
+minor
+material
+critical
+```
+
+---
+
+### 0.23 Intent Drift
+
+Occurs when execution deviates from original intent.
+
+Rules:
+
+* Intent constraints must be enforced
+* Violations must pause or escalate
+
+---
+
+### 0.24 Policy Drift
+
+Occurs when active policy differs from approved policy.
+
+Rules:
+
+* Policy must be versioned and hashed
+* Drift must trigger review
+
+---
+
+### 0.25 Extension and Environment Drift
+
+Rules:
+
+* Versions must be tracked
+* Changes must be validated
+* Critical drift must block execution
+
+---
+
+### 0.26 Safety Envelopes and Constraints
+
+Execution must stay within:
+
+allowed operations
+allowed scope
+allowed impact
+
+Exceeding boundaries must trigger pause or approval.
+
+---
+
+### 0.27 Pre-Commit Verification
+
+Before irreversible actions:
+
+validate
+check policy
+verify constraints
+confirm approvals
+simulate outcome
+
+---
+
+### 0.28 Observed Outcome Integrity
+
+All outcomes must be:
+
+traceable
+verifiable
+linked to intent and target state
+
+---
+
+### 0.29 Final Principle
+
+This system is not built by assembling components,
+but by growing a set of vertically integrated, durable, governed capabilities
+that preserve intent, enforce target state, detect drift, and guarantee outcomes.
+
+---
+
 ## 1. Project Intent
 This repository exists to build a Pi native extension that adds durable, auditable, resumable agent execution using DBOS and Postgres.
 The goal is not to replace Pi.
