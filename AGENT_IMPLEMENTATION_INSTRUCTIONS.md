@@ -1199,3 +1199,233 @@ Multiple agents can coordinate safely.
 Rollback planning exists.
 Policy simulation exists for risky workflows.
 Offline/on-prem operation remains intact.
+
+---
+
+## 34. Cross-Phase Rule: Reuse Before Build
+
+### 34.1 Intent
+
+At every phase, the system must prefer:
+
+```text
+existing Pi extensions
+existing Pi packages
+existing open-source tools
+existing DBOS capabilities
+existing CLI tools
+```
+
+over building new components.
+
+No new feature should be implemented without first checking if it already exists.
+
+---
+
+### 34.2 Mandatory Reuse Evaluation Step
+
+Before implementing any feature, the agent must execute:
+
+1. Define the required capability
+2. Search for existing Pi extension or package
+3. Search for existing open-source tool
+4. Evaluate integration feasibility
+5. Document decision
+6. Only then implement if necessary
+
+This must be documented in:
+
+```
+docs/reuse-evaluation/<feature-name>.md
+```
+
+---
+
+### 34.3 Reuse Categories
+
+The system should explicitly evaluate reuse in these categories:
+
+Pi extensions
+Pi packages
+DBOS features
+CLI tools (git, npm, etc.)
+validation frameworks
+UI components
+agent orchestration tools
+policy engines
+
+---
+
+### 34.4 Integration Preference Order
+
+Always prefer:
+
+1. Native Pi extension reuse
+2. Pi package reuse
+3. Thin wrapper around external tool
+4. Direct integration
+5. Custom implementation (last option)
+
+---
+
+### 34.5 Extension vs Build Decision Rules
+
+Build only if:
+
+no existing extension exists
+existing extension cannot be adapted
+integration cost exceeds build cost
+control or governance requires custom implementation
+offline requirement cannot be met otherwise
+
+---
+
+### 34.6 Extension Wrapping Pattern
+
+When reusing external tools:
+
+Do not expose raw tool.
+Wrap it as a Pi tool or command.
+Add governance checks.
+Log usage in DBOS.
+Attach artifacts to runs.
+
+Example:
+
+```text
+External test runner
+   ↓
+Wrapped as Pi tool
+   ↓
+Executed via DBOS step
+   ↓
+Results stored as validation_results
+```
+
+---
+
+### 34.7 Phase-Specific Reuse Guidance
+
+**Phase 1**
+
+Reuse:
+
+DBOS workflow primitives
+Pi command registration
+basic CLI tooling
+
+Avoid building:
+
+custom workflow engine
+custom scheduler
+custom logging framework
+
+---
+
+**Phase 2**
+
+Reuse:
+
+existing validation tools (npm test, lint)
+existing diff tools
+existing Pi UI components
+
+Avoid building:
+
+custom test framework
+custom diff engine
+custom logging UI
+
+---
+
+**Phase 3**
+
+Reuse:
+
+graph visualization libraries
+existing Pi UI components
+existing multi-agent coordination patterns
+
+Avoid building:
+
+custom graph engine
+custom rendering engine
+complex UI framework from scratch
+
+---
+
+**Phase 4**
+
+Reuse:
+
+existing orchestration tools (if needed)
+existing monitoring tools
+existing policy engines if compatible
+
+Avoid building:
+
+distributed systems platform
+custom metrics system
+custom scheduler
+
+---
+
+### 34.8 Reuse Validation Requirement
+
+Every implemented feature must include:
+
+why reuse was not sufficient
+what alternatives were evaluated
+what trade-offs were considered
+
+If this is missing, the implementation is incomplete.
+
+---
+
+### 34.9 Reusable Extension Output Requirement
+
+All new functionality must be designed as:
+
+reusable Pi extension
+or reusable module within this extension
+
+No feature should be tightly coupled to a single workflow.
+
+---
+
+### 34.10 Long-Term Goal
+
+Over time, the system should:
+
+discover reusable patterns
+promote them into templates
+package them as extensions
+reuse them across tasks
+
+The platform should evolve into:
+
+```text
+a composition of reusable extensions and workflows
+```
+
+not a monolithic system.
+
+---
+
+### 34.11 Architectural Implication
+
+With this rule in place, the platform becomes:
+
+```text
+Not: a system that builds everything itself
+But: a system that intelligently composes, wraps, and governs existing capabilities
+```
+
+Without this rule: you build another framework.
+
+With this rule: you build an adaptive integration and governance layer over the ecosystem.
+
+That is the correct interpretation of the core principles:
+
+- "if it is not needed, it will not be built"
+- "self-adapting/building means composing, not replacing"
