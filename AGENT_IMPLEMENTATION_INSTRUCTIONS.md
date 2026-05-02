@@ -2010,3 +2010,254 @@ The platform becomes:
 A federated, deterministic, and auditable agentic engineering system
 capable of safe collaboration across environments without losing control
 ```
+
+---
+
+## 37. Phase 7: Self-Evolving Agentic Systems with Controlled Autonomy
+
+### 37.1 Phase 7 Intent
+
+Phase 7 begins only after Phase 6 proves:
+- Federation is secure and deterministic
+- Provenance and audit are reliable
+- Policies enforce trust boundaries across environments
+- Extension ecosystem is stable and governed
+
+The intent of Phase 7 is to enable **controlled, self-evolving systems**:
+
+```text
+Systems that can redesign parts of themselves,
+optimize their own architecture,
+and adapt to new requirements,
+while remaining fully governed, auditable, and reversible
+```
+
+This phase introduces:
+
+1. Architecture-level self-evolution
+2. System-wide optimization loops
+3. Adaptive policy refinement (bounded)
+4. Cross-node learning (without data leakage)
+5. Capability-level evolution
+6. Long-term memory of system performance
+7. Safe experimentation frameworks
+
+---
+
+### 37.2 Phase 7 Acceptance Criteria
+
+Phase 7 is complete when:
+
+The system can propose structural changes to its own architecture.
+Architectural changes follow proposal → validation → approval → apply flow.
+The system can optimize workflows based on historical performance.
+Policy refinement is possible but controlled and auditable.
+Learning can be shared across nodes without exposing sensitive data.
+Experiments can be run safely and rolled back.
+All changes remain reproducible and traceable.
+
+---
+
+### 37.3 Architecture-Level Self-Evolution
+
+The system may propose changes to:
+
+extension structure
+workflow templates
+agent roles and coordination
+policy configurations
+validation strategies
+UI interaction patterns
+
+Restrictions:
+
+No direct application without validation and approval.
+All changes must include rollback plan.
+All changes must be versioned.
+
+---
+
+### 37.4 Optimization Loop
+
+Introduce system-wide optimization:
+
+```text
+observe performance
+   ↓
+detect inefficiencies
+   ↓
+generate optimization proposal
+   ↓
+simulate impact
+   ↓
+validate
+   ↓
+approve
+   ↓
+apply
+   ↓
+measure outcome
+```
+
+Optimization targets:
+
+execution time
+failure rates
+validation success
+approval frequency
+resource usage
+developer friction
+
+---
+
+### 37.5 Adaptive Policy Refinement
+
+Policies may evolve based on:
+
+historical approvals
+failure patterns
+risk outcomes
+environment constraints
+
+Rules:
+
+Policy changes must always require approval.
+Policy changes must be explainable.
+Policy rollback must be available.
+Critical safety rules must never be auto-relaxed.
+
+---
+
+### 37.6 Cross-Node Learning
+
+Nodes may exchange:
+
+anonymized performance metrics
+validated workflow templates
+approved extensions
+optimization strategies
+
+Nodes must not exchange:
+
+raw sensitive data
+secrets
+private artifacts without approval
+
+---
+
+### 37.7 Capability Evolution
+
+The system can evolve its capabilities:
+
+replace extensions
+combine capabilities
+deprecate unused components
+introduce improved implementations
+
+Each change must follow:
+
+evaluation
+validation
+approval
+deployment
+monitoring
+
+---
+
+### 37.8 Experimentation Framework
+
+Introduce safe experimentation:
+
+```text
+run experiment in isolated context
+compare against baseline
+evaluate results
+promote if successful
+rollback if not
+```
+
+Experiments must:
+
+be isolated from production runs
+be fully logged
+have clear success criteria
+be reversible
+
+---
+
+### 37.9 Long-Term Memory
+
+Store structured historical data:
+
+run outcomes
+approval decisions
+validation failures
+optimization results
+policy changes
+extension performance
+
+Use this for:
+
+trend detection
+decision support
+future optimization proposals
+
+Do not create opaque or untraceable learning systems.
+
+---
+
+### 37.10 Human Oversight Model
+
+Humans remain:
+
+final authority for high-risk changes
+policy approvers
+system boundary definers
+
+The system may assist but not replace human judgment in critical decisions.
+
+---
+
+### 37.11 Phase 7 Non-Goals
+
+Do not build:
+
+fully autonomous system without oversight
+self-modifying system without audit
+opaque learning mechanisms
+unbounded policy changes
+uncontrolled cross-node learning
+
+---
+
+### 37.12 Definition of Done for Phase 7
+
+Phase 7 is done when:
+
+The system can propose and apply architectural improvements safely.
+Optimization loops operate with measurable benefit.
+Policy refinement is controlled and auditable.
+Experiments are isolated and reversible.
+Cross-node learning improves system behavior without data leakage.
+All changes remain traceable and reproducible.
+
+---
+
+### Final Evolution State (End of Phase 7)
+
+```text
+Federated Nodes
+   ↓
+Shared Knowledge (bounded)
+   ↓
+Self-Optimizing Systems
+   ↓
+Governed Evolution
+```
+
+The platform becomes:
+
+```text
+A governed, self-evolving agentic engineering ecosystem
+capable of continuous improvement without losing control, trust, or auditability
+```
